@@ -1,0 +1,62 @@
+<div class="jumbotron text-center">
+    <h1>Página de Inicio</h1>
+    <p>{{ message }}</p>
+</div>
+<div class="container">
+    <div class="row">
+        
+        <section class="col-md-2 locations">
+            
+            <div class="col-xs-12">
+                <h4>Ubicaciones</h4>
+                <section id="filter-country">
+                 <div class="form-group">
+                     <label for="">Search a Country</label>
+                     <input type="text" class="form-control" autofocus placeholder="Type any country..." ng-model="query">
+                 </div>
+                 <button class="btn btn-default" ng-show="limitResults" ng-click="showLess()">Show Less</button> 
+             </section>
+            </div>
+
+            <div class="col-xs-12">
+                <ul class="list-unstyled list-group" id="listed-countries">
+                    <li id="location{{$index}}" ng-repeat="location in locations | filter : {name : query} | limitTo : limit">
+                        <div>
+                            <h5>
+                                <a href="" ng-click="getLocation($event, location)">{{location.name}}</a>
+                            </h5>
+                        </div>
+                    </li>
+                   <a class="btn btn-default" ng-hide="limitResults" ng-click="loadMore()">Show all</a>
+                </ul>
+            </div>
+        </section>
+
+        <section class="col-md-4 col-md-offset-1 pictures">
+            <div class="col-xs-12">
+                <h4>Imagen</h4>
+            </div>
+            <div class="col-xs-12">
+                <figure>
+                    <img ng-src="{{imgSelected}}" alt="Responsive image">
+                    <figcaption>Picture of: <strong>{{nameSelected}}</strong></figcaption>
+                </figure>
+            </div>
+            
+        </section>
+        
+        <section class="col-md-4 col-md-offset-1 map-space">
+            <div class="col-xs-12">
+                <h4>Mapa</h4>
+            </div>
+            <div class="col-xs-12">
+                <ng-map id="map" default-style="false" center="{{latSelected}}, {{longSelected}}" zoom="5">
+                    <div>
+                        <marker animation="DROP" position="{{latSelected}}, {{longSelected}}"></marker>
+                    </div>
+                </ng-map>
+                <p><strong>Lat: </strong> {{latSelected}} <strong>Long: </strong>{{longSelected}}</p>
+            </div>
+        </section>
+    </div>
+</div>
